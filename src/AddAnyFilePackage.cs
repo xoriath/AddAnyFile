@@ -91,6 +91,15 @@ namespace MadsKristensen.AddAnyFile
                 string file = Path.Combine(folder, input);
                 string dir = Path.GetDirectoryName(file);
 
+                var isRooted = (PackageUtilities.MakeRelativeIfRooted(file, new Url(project.GetRootFolder())) != file);
+                if (!isRooted)
+                {
+                    System.Windows.Forms.MessageBox.Show($"The path '{ file }' is outside the project folder.");
+                    return;
+                }
+
+
+
                 PackageUtilities.EnsureOutputPath(dir);
 
                 if (!File.Exists(file))
