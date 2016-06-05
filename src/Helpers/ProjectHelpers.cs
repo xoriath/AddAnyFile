@@ -93,9 +93,40 @@ namespace MadsKristensen.AddAnyFile
             if (project.IsKind(ProjectTypes.ASPNET_5))
                 return _dte.Solution.FindProjectItem(file);
 
-            ProjectItem item = project.ProjectItems.AddFromFile(file);
+            var fileContainerItem = project.ProjectItems;
+
+            string relative = PackageUtilities.MakeRelative(project.GetRootFolder(), file);
+
+            foreach (var folder in Path.GetDirectoryName(relative).Split(new[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                try 
+                {
+                    fileContainerItem = fileContainerItem.AddFolder(folder).ProjectItems;
+                }
+
+                catch (Exception e) 
+                {
+                    fileContainerItem = FindFolderNode(fileContainerItem, folder, e);
+                }
+            }
+
+            var item = fileContainerItem.AddFromFile(file);
             item.SetItemType(itemType);
             return item;
+        }
+
+        public static ProjectItems FindFolderNode(ProjectItems projectItems, string folder, Exception e = null)
+        {
+            foreach (ProjectItem node in projectItems)
+            {
+                if (node.Kind.Equals(Constants.vsProjectItemKindPhysicalFolder, StringComparison.InvariantCultureIgnoreCase) 
+                    && node.Name == folder)
+                {
+                    return node.ProjectItems;
+                }
+            }
+
+            throw new ArgumentException($"Failed to find folder { folder } in project.", e);
         }
 
         public static void SetItemType(this ProjectItem item, string itemType)
