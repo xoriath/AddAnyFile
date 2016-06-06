@@ -19,7 +19,7 @@
     </Commands>
 
     <KeyBindings>
-        <KeyBinding guid="guidAddAnyFileCmdSet" id="cmdidMyCommand" mod1="Shift" key1="VK_F2" editor="guidVSStd97"/>
+        <KeyBinding guid="guidAddAnyFileCmdSet" id="cmdidMyCommand" mod1="Alt" key1="VK_F2" editor="guidVSStd97"/>
     </KeyBindings>
 
     <Symbols>

@@ -9,7 +9,7 @@ or get the
 
 -------------------------------------------------
 
-A Visual Studio extension for easily adding new files to any project. Simply hit Shift+F2 to create an empty file in the
+A Visual Studio extension for easily adding new files to any project. Simply hit Alt+F2 to create an empty file in the
 selected folder or in the same folder as the selected file.
 
 See the [changelog](CHANGELOG.md) for updates and roadmap.
@@ -29,7 +29,7 @@ A new button is added to the context menu in Solution Explorer.
 
 ![Add new file dialog](art/menu.png)
 
-You can either click that button or use the keybord shortcut **Shift+F2**.
+You can either click that button or use the keybord shortcut **Alt+F2**.
 
 ### Create folders
 
